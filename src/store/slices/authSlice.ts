@@ -3,10 +3,10 @@ import { RootState } from '@store/store';
 import { UserType } from './types';
 
 interface initialState {
-  user: UserType;
-  deviceId: string;
-  accessToken: string;
-  refreshToken: string;
+  user: UserType | null;
+  deviceId: string | null;
+  accessToken: string | null;
+  refreshToken: string | null;
 }
 
 const initialState = {
@@ -30,10 +30,11 @@ const authSlice = createSlice({
 });
 
 export const { setCredentials, logOut } = authSlice.actions;
-export default authSlice.reducer;
+export const authReducer = authSlice.reducer;
 
 export const selectCurrentUser = (state: RootState) => state.auth.user;
 export const selectCurrentAccessToken = (state: RootState) =>
   state.auth.accessToken;
 export const selectCurrentRefreshToken = (state: RootState) =>
   state.auth.refreshToken;
+export const selectCurrentDeviceId = (state: RootState) => state.auth.deviceId;

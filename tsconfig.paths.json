@@ -9,7 +9,7 @@
       "@routes/*": ["./routes/*"],
       "@store/*": ["./store/*"],
       "@styles/*": ["./styles/*"],
-      "@types/*": ["./types/*"],
+      "@appTypes/*": ["./types/*"],
       "@utils/*": ["./utils/*"],
       "@views/*": ["./views/*"]
     }
