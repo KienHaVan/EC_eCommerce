@@ -1,19 +1,18 @@
+import { ThemeProvider } from '@mui/material';
+import { theme } from '@styles/theme.styles';
+import App from './App';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './styles/reset.css';
 import './styles/index.css';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { MainRoute } from './routes';
+import './styles/reset.css';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/*" element={<MainRoute />} />
-      </Routes>
-    </BrowserRouter>
+    <ThemeProvider theme={theme}>
+      <App />
+    </ThemeProvider>
   </React.StrictMode>
 );
