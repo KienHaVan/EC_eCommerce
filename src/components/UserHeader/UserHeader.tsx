@@ -15,6 +15,7 @@ import React from 'react';
 import { SearchBar } from './SearchBar';
 import { FiShoppingCart, FiUser } from 'react-icons/fi';
 import { LinkBar } from './LinkBar';
+import { StyledContainerBox } from '@styles/components/UserHeader/UserHeader';
 
 const StyledLinkToolBar = styled(Toolbar)(({ theme }) => ({
   backgroundColor: theme.palette.common.GREY_300,
@@ -30,18 +31,7 @@ export const UserHeader = () => {
         <LinkBar />
       </StyledLinkToolBar>
       <Toolbar>
-        <Box
-          sx={{
-            maxWidth: '1200px',
-            marginLeft: 'auto',
-            marginRight: 'auto',
-            width: '100%',
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center',
-            gap: '24px',
-          }}
-        >
+        <StyledContainerBox>
           <Typography
             variant="h5"
             noWrap
@@ -54,7 +44,7 @@ export const UserHeader = () => {
           <SearchBar />
           <FiShoppingCart size={28} />
           <FiUser size={28} />
-        </Box>
+        </StyledContainerBox>
       </Toolbar>
     </AppBar>
   );

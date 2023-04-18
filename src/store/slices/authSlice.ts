@@ -1,6 +1,6 @@
+import { UserType } from '@appTypes/auth.types';
 import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '@store/store';
-import { UserType } from './types';
 
 interface initialState {
   user: UserType | null;
@@ -9,7 +9,7 @@ interface initialState {
   refreshToken: string | null;
 }
 
-const initialState = {
+const initialState: initialState = {
   user: null,
   deviceId: null,
   accessToken: null,

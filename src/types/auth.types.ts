@@ -5,10 +5,12 @@ export interface UserType {
   password: string;
   contact: null;
   avatar: null;
-  role: string;
+  role: RoleType;
   isEmailVerified: boolean;
   isContactVerified: boolean;
   isActive: boolean;
   createdAt: string;
   updatedAt: string;
 }
+
+export type RoleType = 'admin' | 'user';

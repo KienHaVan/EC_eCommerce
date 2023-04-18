@@ -1,17 +1,9 @@
 import { Box, Button, Typography, styled } from '@mui/material';
+import {
+  StyledBoxContainer,
+  StyledButton,
+} from '@styles/components/UserHeader/LinkBar';
 import React from 'react';
-
-const StyledBoxContainer = styled(Box)(({ theme }) => ({
-  maxWidth: '1200px',
-  marginLeft: 'auto',
-  marginRight: 'auto',
-  width: '100%',
-}));
-
-const StyledButton = styled(Button)(({ theme }) => ({
-  textTransform: 'none',
-  color: theme.palette.common.GREY_500,
-}));
 
 const list = ['About us', 'Contacts', 'Store', 'Track orders'];
 
