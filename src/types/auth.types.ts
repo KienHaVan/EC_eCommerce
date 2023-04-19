@@ -1,3 +1,10 @@
+export interface AuthStateType {
+  user: UserType | null;
+  deviceId: string | null;
+  accessToken: string | null;
+  refreshToken: string | null;
+}
+
 export interface UserType {
   id: number;
   username: string;

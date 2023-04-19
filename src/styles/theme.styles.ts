@@ -18,6 +18,7 @@ export const theme = createTheme({
       GREY_400: '#C4C4C4',
       GREY_500: '#5B5B5B',
       GREY_600: '#4B4B4B',
+      GREY_700: '#383737',
     },
   },
 });

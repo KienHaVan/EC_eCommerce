@@ -2,6 +2,7 @@ import {
   AppBar,
   Badge,
   Box,
+  Button,
   IconButton,
   InputBase,
   Menu,
@@ -16,6 +17,9 @@ import { SearchBar } from './SearchBar';
 import { FiShoppingCart, FiUser } from 'react-icons/fi';
 import { LinkBar } from './LinkBar';
 import { StyledContainerBox } from '@styles/components/UserHeader/UserHeader';
+import { Images } from '@assets/index';
+import { useAppDispatch } from '@store/store';
+import { handleOpenLogin } from '@store/slices/statusSlice';
 
 const StyledLinkToolBar = styled(Toolbar)(({ theme }) => ({
   backgroundColor: theme.palette.common.GREY_300,
@@ -25,6 +29,7 @@ const StyledLinkToolBar = styled(Toolbar)(({ theme }) => ({
 }));
 
 export const UserHeader = () => {
+  const dispatch = useAppDispatch();
   return (
     <AppBar component="nav">
       <StyledLinkToolBar>
@@ -42,8 +47,12 @@ export const UserHeader = () => {
             SHOP APP
           </Typography>
           <SearchBar />
-          <FiShoppingCart size={28} />
-          <FiUser size={28} />
+          <Button>
+            <img src={Images.CARTHOME} alt="" />
+          </Button>
+          <Button onClick={() => dispatch(handleOpenLogin())}>
+            <img src={Images.USERHOME} alt="" />
+          </Button>
         </StyledContainerBox>
       </Toolbar>
     </AppBar>

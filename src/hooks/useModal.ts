@@ -8,5 +8,9 @@ export const useModal = () => {
   const handleClose = () => {
     setOpen(false);
   };
-  return { open, handleOpen, handleClose };
+
+  const handleToggle = () => {
+    setOpen(!open);
+  };
+  return { open, handleOpen, handleClose, handleToggle };
 };

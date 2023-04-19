@@ -189,7 +189,9 @@ export const AdminSideBar = () => {
             <Typography fontWeight={700} fontSize={25} color="black">
               SHOP APP
             </Typography>
-            <StyledAdminTag>ADMIN</StyledAdminTag>
+            <StyledAdminTag className="center">
+              <Typography>ADMIN</Typography>
+            </StyledAdminTag>
           </StyledNameBox>
           <StyledAppBox justifyContent={open ? 'initial' : 'center'}>
             <Typography color={theme.palette.common.GREY_400} fontWeight={700}>

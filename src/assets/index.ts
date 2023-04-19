@@ -11,4 +11,7 @@ export const Images = {
   LEFT: require('./images/left.png'),
   DOWN: require('./images/down.png'),
   NOTIFY: require('./images/notify.png'),
+  LOGO: require('./images/logo.png'),
+  CARTHOME: require('./images/cartHome.png'),
+  USERHOME: require('./images/userHome.png'),
 };

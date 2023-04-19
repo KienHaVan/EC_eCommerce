@@ -1,15 +1,15 @@
 import { UserType } from '@appTypes/auth.types';
-import { createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '@store/store';
 
-interface initialState {
+interface AuthStateType {
   user: UserType | null;
   deviceId: string | null;
   accessToken: string | null;
   refreshToken: string | null;
 }
 
-const initialState: initialState = {
+const initialState: AuthStateType = {
   user: null,
   deviceId: null,
   accessToken: null,
@@ -20,7 +20,7 @@ const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    setCredentials: (state, action) => {
+    setCredentials: (state, action: PayloadAction<AuthStateType>) => {
       return action.payload;
     },
     logOut: (state) => {
