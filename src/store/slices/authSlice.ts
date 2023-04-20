@@ -1,15 +1,16 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { UserType } from '@appTypes/auth.types';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '@store/store';
-import { UserType } from './types';
+import { encryptData } from '@utils/cryptData';
 
-interface initialState {
+interface AuthStateType {
   user: UserType | null;
   deviceId: string | null;
   accessToken: string | null;
   refreshToken: string | null;
 }
 
-const initialState = {
+const initialState: AuthStateType = {
   user: null,
   deviceId: null,
   accessToken: null,
@@ -20,10 +21,12 @@ const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    setCredentials: (state, action) => {
+    setCredentials: (state, action: PayloadAction<AuthStateType>) => {
+      encryptData('auth', action.payload);
       return action.payload;
     },
     logOut: (state) => {
+      localStorage.clear();
       return initialState;
     },
   },

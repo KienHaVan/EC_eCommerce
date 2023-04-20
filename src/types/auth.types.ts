@@ -1,3 +1,10 @@
+export interface AuthStateType {
+  user: UserType | null;
+  deviceId: string | null;
+  accessToken: string | null;
+  refreshToken: string | null;
+}
+
 export interface UserType {
   id: number;
   username: string;
@@ -5,10 +12,12 @@ export interface UserType {
   password: string;
   contact: null;
   avatar: null;
-  role: string;
+  role: RoleType;
   isEmailVerified: boolean;
   isContactVerified: boolean;
   isActive: boolean;
   createdAt: string;
   updatedAt: string;
 }
+
+export type RoleType = 'admin' | 'user';
