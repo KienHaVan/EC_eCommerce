@@ -31,7 +31,14 @@ export const AuthenModal = ({
           </Typography>
           <img src={Images.LOGO} alt="" />
         </StyledSideBox>
-        <Box flex={'50%'} className="center">
+        <Box
+          flex={'50%'}
+          className="center"
+          borderRadius="20px"
+          sx={{
+            backgroundColor: theme.palette.common.white,
+          }}
+        >
           {children}
         </Box>
         <StyledCloseButton className="center" onClick={handleClose}>

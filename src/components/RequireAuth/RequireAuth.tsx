@@ -11,10 +11,7 @@ export const RequireAuth = ({ allowedRole }: { allowedRole: RoleType }) => {
 
   return user && user.role === allowedRole ? (
     <Outlet />
-  ) : accessToken ? (
-    <Navigate to={'/error'} replace />
   ) : (
     <Navigate to={'/login'} replace />
   );
-  // return <Outlet />;
 };

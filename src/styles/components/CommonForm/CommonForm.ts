@@ -4,9 +4,11 @@ export const StyledBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
-  paddingLeft: '60px',
-  paddingRight: '60px',
+  // paddingLeft: '60px',
+  // paddingRight: '60px',
   gap: '12px',
+  padding: '60px',
+  borderRadius: '20px',
 }));
 
 export const StyledPasswordButton = styled(Button)(({ theme }) => ({

@@ -1,6 +1,7 @@
 import { UserType } from '@appTypes/auth.types';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '@store/store';
+import { encryptData } from '@utils/cryptData';
 
 interface AuthStateType {
   user: UserType | null;
@@ -21,9 +22,11 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     setCredentials: (state, action: PayloadAction<AuthStateType>) => {
+      encryptData('auth', action.payload);
       return action.payload;
     },
     logOut: (state) => {
+      localStorage.clear();
       return initialState;
     },
   },

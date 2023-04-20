@@ -23,6 +23,11 @@ import {
 import { theme } from '@styles/theme.styles';
 import { SubmitHandler } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import { useAppDispatch } from '@store/store';
+import {
+  handleCloseLogin,
+  handleOpenResetPassword,
+} from '@store/slices/statusSlice';
 
 type FormData = Record<string, unknown> & {
   [key: string]: string;
@@ -35,6 +40,7 @@ interface formFieldType {
 }
 
 interface Props<T extends FormData> {
+  upperTitle?: string;
   onSubmit: SubmitHandler<T>;
   submitButtonText: string;
   formFields: formFieldType[];
@@ -47,6 +53,7 @@ interface Props<T extends FormData> {
 }
 
 export const CommonForm = <T extends FormData>({
+  upperTitle = 'Welcome to Shop App',
   onSubmit,
   submitButtonText,
   formFields,
@@ -67,6 +74,7 @@ export const CommonForm = <T extends FormData>({
     setShowPasswordButton(false);
   };
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   return (
     <StyledBox component={'form'} onSubmit={handleSubmit(onSubmit)}>
       <Typography
@@ -74,7 +82,7 @@ export const CommonForm = <T extends FormData>({
         fontSize={'24px'}
         color={theme.palette.common.black}
       >
-        Welcome to Shop App
+        {upperTitle}
       </Typography>
       {formFields.map((field, index) => {
         const { name, label, type } = field;
@@ -87,7 +95,7 @@ export const CommonForm = <T extends FormData>({
               <Input
                 {...register(name.toString() as any)}
                 error={!!errors[name]}
-                id="standard-adornment-password"
+                // id="standard-adornment-password"
                 type={showPasswordButton ? 'text' : 'password'}
                 endAdornment={
                   <InputAdornment position="end">
@@ -100,7 +108,14 @@ export const CommonForm = <T extends FormData>({
                         Show
                       </StyledPasswordButton>
                     ) : (
-                      <StyledPasswordButton>Forgot?</StyledPasswordButton>
+                      <StyledPasswordButton
+                        onClick={() => {
+                          dispatch(handleCloseLogin());
+                          dispatch(handleOpenResetPassword());
+                        }}
+                      >
+                        Forgot?
+                      </StyledPasswordButton>
                     )}
                   </InputAdornment>
                 }
@@ -125,7 +140,9 @@ export const CommonForm = <T extends FormData>({
         );
       })}
       <StyledButton variant="contained" type="submit">
-        <Typography sx={{ fontWeight: '700', fontSize: '24px' }}>
+        <Typography
+          sx={{ fontWeight: '700', fontSize: '24px', textTransform: 'none' }}
+        >
           {submitButtonText}
         </Typography>
       </StyledButton>

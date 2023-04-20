@@ -21,3 +21,7 @@ body {
   justify-content: center;
   align-items: center;
 }
+
+.my-sweetalert2-popup-class {
+  z-index: 9999;
+}

@@ -6,8 +6,8 @@ export const StyledBoxContainer = styled(Box)(({ theme }) => ({
   left: '50%',
   transform: 'translate(-50%, -50%)',
   minWidth: '800px',
-  height: '400px',
-  backgroundColor: theme.palette.common.white,
+  height: 'max-content',
+  backgroundColor: theme.palette.primary.light,
   borderRadius: '20px',
   display: 'flex',
   justifyContent: 'space-between',
@@ -15,10 +15,9 @@ export const StyledBoxContainer = styled(Box)(({ theme }) => ({
 }));
 
 export const StyledSideBox = styled(Box)(({ theme }) => ({
-  backgroundColor: theme.palette.primary.light,
-  height: '100%',
   borderRadius: '20px',
   flexDirection: 'column',
+  height: '100%',
 }));
 
 export const StyledCloseButton = styled(Button)(({ theme }) => ({
@@ -31,4 +30,5 @@ export const StyledCloseButton = styled(Button)(({ theme }) => ({
   textTransform: 'none',
   boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
   minWidth: 'auto',
+  backgroundColor: theme.palette.common.white,
 }));

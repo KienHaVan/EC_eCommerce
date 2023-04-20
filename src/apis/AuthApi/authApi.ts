@@ -1,5 +1,14 @@
 import { AuthStateType, RoleType } from '@appTypes/auth.types';
-import { LoginRequestType, LoginResponseType } from './types';
+import {
+  ForgotPasswordRequestType,
+  ForgotPasswordResponseType,
+  LogOutRequestType,
+  LogOutResponseType,
+  LoginRequestType,
+  LoginResponseType,
+  RegisterRequestType,
+  RegisterResponseType,
+} from './types';
 import apiSlice from '@apis/apiSlice';
 
 export const authApiSlice = apiSlice.injectEndpoints({
@@ -36,7 +45,36 @@ export const authApiSlice = apiSlice.injectEndpoints({
         return transformedResponse;
       },
     }),
+    register: builder.mutation<RegisterResponseType, RegisterRequestType>({
+      query: (credentials) => ({
+        url: 'v1/auth/register',
+        method: 'POST',
+        body: credentials,
+      }),
+    }),
+    resetPassword: builder.mutation<
+      ForgotPasswordResponseType,
+      ForgotPasswordRequestType
+    >({
+      query: (email) => ({
+        url: 'v1/auth/forgot-password',
+        method: 'POST',
+        body: email,
+      }),
+    }),
+    logout: builder.mutation<LogOutResponseType, LogOutRequestType>({
+      query: (credentials) => ({
+        url: 'v1/auth/logout',
+        method: 'POST',
+        body: credentials,
+      }),
+    }),
   }),
 });
 
-export const { useLoginMutation } = authApiSlice;
+export const {
+  useLoginMutation,
+  useRegisterMutation,
+  useResetPasswordMutation,
+  useLogoutMutation,
+} = authApiSlice;

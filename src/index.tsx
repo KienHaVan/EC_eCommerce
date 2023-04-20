@@ -8,6 +8,7 @@ import './styles/index.css';
 import './styles/reset.css';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import 'sweetalert2/dist/sweetalert2.min.css';
 import { Provider } from 'react-redux';
 
 const root = ReactDOM.createRoot(

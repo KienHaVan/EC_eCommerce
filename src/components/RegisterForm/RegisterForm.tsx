@@ -2,10 +2,19 @@ import { AuthenModal } from '@components/AuthenModal';
 import { CommonForm } from '@components/CommonForm';
 import * as yup from 'yup';
 import { RegisterFormType, Props } from './types';
+import { useAppDispatch } from '@store/store';
+import {
+  handleCloseRegister,
+  handleOpenLogin,
+} from '@store/slices/statusSlice';
+import { useLoginMutation, useRegisterMutation } from '@apis/AuthApi';
+import { toast } from 'react-toastify';
+import Swal from 'sweetalert2';
+import { setCredentials } from '@store/slices/authSlice';
 
 const formSchema = yup
   .object({
-    name: yup.string().required('Please insert your name'),
+    username: yup.string().required('Please insert your name'),
     email: yup
       .string()
       .lowercase()
@@ -27,19 +36,56 @@ const formSchema = yup
   .required();
 
 const formFields = [
-  { name: 'name', label: 'User Name', type: 'text' },
+  { name: 'username', label: 'User Name', type: 'text' },
   { name: 'email', label: 'Email@example.com', type: 'email' },
   { name: 'password', label: 'Password', type: 'password' },
   {
-    name: 'ConfirmPassword',
+    name: 'confirmPassword',
     label: 'Confirm Password',
     type: 'password',
   },
 ];
 
 export const RegisterForm = ({ open, handleOpen, handleClose }: Props) => {
-  const onRegister = () => {
-    console.log('Register!');
+  const dispatch = useAppDispatch();
+  const [registerFn, { isLoading: RegisterLoading }] = useRegisterMutation();
+  const [loginFn, { isLoading: LoginLoading }] = useLoginMutation();
+  const onRegister = async (data: RegisterFormType) => {
+    try {
+      await registerFn({
+        username: data.username,
+        email: data.email,
+        password: data.password,
+      }).unwrap();
+      dispatch(handleCloseRegister());
+      toast('Register successfully');
+      const result = await Swal.fire({
+        title: 'Go to login?',
+        showCancelButton: true,
+        confirmButtonText: 'Login',
+      });
+      if (result.isConfirmed) {
+        dispatch(handleOpenLogin());
+        const auth = await loginFn({
+          email: data.email,
+          password: data.password,
+          deviceId: `deviceId-${data.email}`,
+        }).unwrap();
+        dispatch(setCredentials(auth));
+      }
+    } catch (error) {
+      toast.error('Register failed!');
+    }
+  };
+  const supportButton: {
+    text: string;
+    onClick: () => void;
+  } = {
+    text: 'Login',
+    onClick: () => {
+      dispatch(handleCloseRegister());
+      dispatch(handleOpenLogin());
+    },
   };
   return (
     <AuthenModal
@@ -50,10 +96,11 @@ export const RegisterForm = ({ open, handleOpen, handleClose }: Props) => {
     >
       <CommonForm<any>
         onSubmit={onRegister}
-        submitButtonText="Login"
+        submitButtonText="Register"
         formFields={formFields}
         formSchema={formSchema}
         mode="show"
+        supportButton={supportButton}
       />
     </AuthenModal>
   );

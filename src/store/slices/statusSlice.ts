@@ -3,11 +3,13 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 interface StatusStateType {
   openLogin: boolean;
   openRegister: boolean;
+  openResetPassword: boolean;
 }
 
 const initialState: StatusStateType = {
   openLogin: false,
   openRegister: false,
+  openResetPassword: false,
 };
 
 const statusSlice = createSlice({
@@ -20,8 +22,27 @@ const statusSlice = createSlice({
     handleCloseLogin: (state) => {
       state.openLogin = false;
     },
+    handleOpenRegister: (state) => {
+      state.openRegister = true;
+    },
+    handleCloseRegister: (state) => {
+      state.openRegister = false;
+    },
+    handleOpenResetPassword: (state) => {
+      state.openResetPassword = true;
+    },
+    handleCloseResetPassword: (state) => {
+      state.openResetPassword = false;
+    },
   },
 });
 
-export const { handleOpenLogin, handleCloseLogin } = statusSlice.actions;
+export const {
+  handleOpenLogin,
+  handleCloseLogin,
+  handleOpenRegister,
+  handleCloseRegister,
+  handleOpenResetPassword,
+  handleCloseResetPassword,
+} = statusSlice.actions;
 export const statusReducer = statusSlice.reducer;

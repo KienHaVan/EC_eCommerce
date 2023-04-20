@@ -5,7 +5,7 @@ export interface Props {
 }
 
 export interface RegisterFormType {
-  name: string;
+  username: string;
   email: string;
   password: string;
   confirmPassword: string;
