@@ -10,4 +10,5 @@ export const StyledContainerBox = styled(Box)(({ theme }) => ({
   alignItems: 'center',
   gap: '8px',
   padding: '24px 0',
+  cursor: 'pointer',
 }));

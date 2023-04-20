@@ -8,9 +8,12 @@ import { LoginRequestType } from '@apis/AuthApi/types';
 import { useAppDispatch } from '@store/store';
 import { setCredentials } from '@store/slices/authSlice';
 import {
+  handleCloseGlobalLoading,
   handleCloseLogin,
+  handleOpenGlobalLoading,
   handleOpenRegister,
 } from '@store/slices/statusSlice';
+import { useEffect } from 'react';
 
 const formSchema = yup
   .object({
@@ -38,6 +41,14 @@ const formFields = [
 export const LoginForm = ({ open, handleOpen, handleClose }: Props) => {
   const [loginFn, { isLoading }] = useLoginMutation();
   const dispatch = useAppDispatch();
+  useEffect(() => {
+    if (isLoading) {
+      dispatch(handleOpenGlobalLoading());
+    } else {
+      dispatch(handleCloseGlobalLoading());
+    }
+  }, [isLoading]);
+
   const onLogin = async (data: LoginFormType) => {
     try {
       const LoginRequestData: LoginRequestType = {

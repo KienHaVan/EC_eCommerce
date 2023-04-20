@@ -3,11 +3,13 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { authReducer } from './slices/authSlice';
 import { statusReducer } from './slices/statusSlice';
 import apiSlice from '@apis/apiSlice';
+import { productReducer } from './slices/productSlice';
 
 const store = configureStore({
   reducer: {
     auth: authReducer,
     status: statusReducer,
+    product: productReducer,
     [apiSlice.reducerPath]: apiSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>

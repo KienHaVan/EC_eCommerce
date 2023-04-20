@@ -10,6 +10,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import { Provider } from 'react-redux';
+import LoadingModal from '@components/LoadingModal/LoadingModal';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -30,6 +31,7 @@ root.render(
         pauseOnHover
         theme="light"
       />
+      <LoadingModal />
     </ThemeProvider>
   </Provider>
 );

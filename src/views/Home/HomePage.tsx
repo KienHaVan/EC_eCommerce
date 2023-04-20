@@ -1,4 +1,3 @@
-import { useGetAllProductsQuery } from '@apis/ProductApi/productApi';
 import { Images } from '@assets/index';
 import { AuthenModal } from '@components/AuthenModal';
 import { CategoryBar } from '@components/CategoryBar';
@@ -11,16 +10,24 @@ import { useModal } from '@hooks/useModal';
 import { Box, Button, Dialog, Modal, Slide, Typography } from '@mui/material';
 import { TransitionProps } from '@mui/material/transitions';
 import {
+  handleCloseGlobalLoading,
   handleCloseLogin,
   handleCloseRegister,
   handleCloseResetPassword,
+  handleOpenGlobalLoading,
   handleOpenLogin,
   handleOpenRegister,
   handleOpenResetPassword,
 } from '@store/slices/statusSlice';
 import { RootState, useAppDispatch, useAppSelector } from '@store/store';
 import { theme } from '@styles/theme.styles';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { FeaturedProducts } from './FeaturedProducts';
+import { SpecialCoupons } from './SpecialCoupons';
+import { AllProducts } from './AllProducts';
+import { useGetAllProductsQuery } from '@apis/ProductApi';
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
 
 export const Home = () => {
   const dispatch = useAppDispatch();
@@ -45,140 +52,60 @@ export const Home = () => {
   const onCloseResetPassword = () => {
     dispatch(handleCloseResetPassword());
   };
-
-  const { data, error, isLoading } = useGetAllProductsQuery({
-    page: 0,
+  const [pagination, setPagination] = useState({
+    page: 1,
     size: 8,
   });
 
+  const handleChangePagination = (
+    event: React.ChangeEvent<unknown>,
+    value: number
+  ) => {
+    setPagination({ ...pagination, page: value });
+  };
+
+  const categoryChosen = useAppSelector(
+    (state: RootState) => state.product.categoryChosen
+  );
+
+  const {
+    data: allProducts,
+    error,
+    isLoading,
+  } = useGetAllProductsQuery({
+    page: pagination.page,
+    size: pagination.size,
+    category: categoryChosen,
+  });
+
+  useEffect(() => {
+    if (isLoading) {
+      dispatch(handleOpenGlobalLoading());
+    } else {
+      dispatch(handleCloseGlobalLoading());
+    }
+  }, [isLoading]);
+
   return (
-    <>
+    <Box sx={{ display: 'flex', flexDirection: 'column' }}>
       <Box sx={{ display: 'flex', flexDirection: 'row', gap: '10px' }}>
         <CategoryBar />
-        <Box
-          sx={{
-            flex: 1,
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '8px',
-          }}
-        >
-          <Box sx={{ backgroundColor: 'red', flex: 1.7, borderRadius: '5px' }}>
-            <img
-              src="https://images.unsplash.com/photo-1541701494587-cb58502866ab?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8c3BsYXNofGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
-              alt=""
-              style={{
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover',
-                borderRadius: '5px',
-              }}
-            />
-          </Box>
-          <Box
-            sx={{
-              flex: 1,
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              gap: '8px',
-            }}
-          >
-            <Box sx={{ backgroundColor: 'red', flex: 1, borderRadius: '5px' }}>
-              <img
-                src="https://images.unsplash.com/photo-1541701494587-cb58502866ab?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8c3BsYXNofGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
-                alt=""
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                  borderRadius: '5px',
-                }}
-              />
-            </Box>
-            <Box sx={{ backgroundColor: 'red', flex: 1, borderRadius: '5px' }}>
-              <img
-                src="https://images.unsplash.com/photo-1541701494587-cb58502866ab?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8c3BsYXNofGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
-                alt=""
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                  borderRadius: '5px',
-                }}
-              />
-            </Box>
-            <Box sx={{ backgroundColor: 'red', flex: 1, borderRadius: '5px' }}>
-              <img
-                src="https://images.unsplash.com/photo-1541701494587-cb58502866ab?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8c3BsYXNofGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
-                alt=""
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                  borderRadius: '5px',
-                }}
-              />
-            </Box>
-          </Box>
-        </Box>
+        <FeaturedProducts />
       </Box>
-      <Box
-        sx={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(4, 1fr)',
-          gap: '12px',
-          marginTop: '8px',
-        }}
-      >
-        <SpecialTag />
-        <SpecialTag />
-        <SpecialTag />
-        <SpecialTag />
-      </Box>
-      <Box
-        sx={{
-          padding: '8px 28px',
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          margin: '20px 0',
-        }}
-      >
-        <Typography fontWeight={700} fontSize={'22px'} lineHeight={'25px'}>
-          Best Sellers
-        </Typography>
-        <Button
-          sx={{
-            padding: '8px 16px',
-            border: '1px solid #F0E36A',
-            borderRadius: '56px',
-            textTransform: 'none',
-          }}
-        >
-          <Typography
-            fontWeight={700}
-            fontSize={'16px'}
-            lineHeight={'18px'}
-            color={theme.palette.common.black}
-          >
-            Show more ...
-          </Typography>
-        </Button>
-      </Box>
-      <Box
-        sx={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(4, 1fr)',
-          gap: '12px',
-        }}
-      >
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-      </Box>
+
+      <SpecialCoupons />
+
+      <AllProducts allProducts={allProducts} />
+
+      <Stack spacing={2} margin="20px 0" marginX={'auto'}>
+        <Pagination
+          count={allProducts?.totalPages}
+          color="primary"
+          page={pagination.page}
+          onChange={handleChangePagination}
+        />
+      </Stack>
+
       <LoginForm
         open={openLogin}
         handleOpen={onOpenLogin}
@@ -194,6 +121,6 @@ export const Home = () => {
         handleOpen={onOpenResetPassword}
         handleClose={onCloseResetPassword}
       />
-    </>
+    </Box>
   );
 };

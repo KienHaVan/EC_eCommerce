@@ -18,6 +18,12 @@ const statusSlice = createSlice({
   name: 'status',
   initialState,
   reducers: {
+    handleOpenGlobalLoading: (state) => {
+      state.globalLoading = true;
+    },
+    handleCloseGlobalLoading: (state) => {
+      state.globalLoading = false;
+    },
     handleOpenLogin: (state) => {
       state.openLogin = true;
     },
@@ -40,6 +46,8 @@ const statusSlice = createSlice({
 });
 
 export const {
+  handleOpenGlobalLoading,
+  handleCloseGlobalLoading,
   handleOpenLogin,
   handleCloseLogin,
   handleOpenRegister,

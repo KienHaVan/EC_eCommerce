@@ -8,6 +8,7 @@ export const StyledSearch = styled('div')(({ theme }) => ({
   padding: '4px 4px',
   backgroundColor: theme.palette.grey[400],
   flex: 1,
+  marginLeft: '12px',
 }));
 
 export const StyledCategoryBox = styled(Box)(({ theme }) => ({

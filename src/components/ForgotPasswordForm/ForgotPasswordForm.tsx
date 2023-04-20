@@ -8,10 +8,13 @@ import { useAppDispatch } from '@store/store';
 import { setCredentials } from '@store/slices/authSlice';
 import { Props } from './types';
 import {
+  handleCloseGlobalLoading,
   handleCloseResetPassword,
+  handleOpenGlobalLoading,
   handleOpenLogin,
   handleOpenResetPassword,
 } from '@store/slices/statusSlice';
+import { useEffect } from 'react';
 
 const formSchema = yup
   .object({
@@ -41,9 +44,14 @@ export const ForgotPasswordForm = ({
 }: Props) => {
   const dispatch = useAppDispatch();
   const [resetPassword, { isLoading }] = useResetPasswordMutation();
+  useEffect(() => {
+    if (isLoading) {
+      dispatch(handleOpenGlobalLoading());
+    } else {
+      dispatch(handleCloseGlobalLoading());
+    }
+  }, [isLoading]);
   const onResetPassword = async (data: { email: string }) => {
-    console.log(data);
-
     try {
       await resetPassword(data).unwrap();
       toast('Please check your email');

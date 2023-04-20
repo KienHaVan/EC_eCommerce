@@ -23,7 +23,7 @@ export const Layout = () => {
   return (
     <Container maxWidth="lg" disableGutters>
       <UserHeader />
-      <Box paddingTop={'150px'}>
+      <Box paddingTop={'172px'}>
         <Outlet />
       </Box>
     </Container>

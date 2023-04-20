@@ -39,7 +39,10 @@ export const MainRoute = () => {
       //PUBLIC
       <Route path="/" element={<Layout />}>
         <Route path={PATH.HOME} element={<Home />} />
-        <Route path={PATH.PRODUCT_DETAILS} element={<ProductDetails />} />
+        <Route
+          path={`${PATH.PRODUCT_DETAILS}/:productId`}
+          element={<ProductDetails />}
+        />
         {/* User */}
         <Route element={<RequireAuth allowedRole={ROLE.USER} />}>
           <Route path="/" element={<Navigate to={PATH.HOME} />} />

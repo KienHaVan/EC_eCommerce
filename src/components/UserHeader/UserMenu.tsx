@@ -1,5 +1,7 @@
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import { logOut } from '@store/slices/authSlice';
+import { useAppDispatch } from '@store/store';
 import { theme } from '@styles/theme.styles';
 
 interface Props {
@@ -9,6 +11,7 @@ interface Props {
 }
 
 export const UserMenu = ({ anchorEl, open, handleClose }: Props) => {
+  const dispatch = useAppDispatch();
   return (
     <Menu
       anchorEl={anchorEl}
@@ -37,7 +40,7 @@ export const UserMenu = ({ anchorEl, open, handleClose }: Props) => {
     >
       <MenuItem>My Profile</MenuItem>
       <MenuItem>Order History</MenuItem>
-      <MenuItem>Logout</MenuItem>
+      <MenuItem onClick={() => dispatch(logOut())}>Logout</MenuItem>
     </Menu>
   );
 };

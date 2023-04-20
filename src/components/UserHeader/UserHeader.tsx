@@ -25,6 +25,7 @@ import { selectCurrentUser } from '@store/slices/authSlice';
 import { useModal } from '@hooks/useModal';
 import { UserMenu } from './UserMenu';
 import { CartMenu } from './CartMenu';
+import { useNavigate } from 'react-router-dom';
 
 const StyledLinkToolBar = styled(Toolbar)(({ theme }) => ({
   backgroundColor: theme.palette.common.GREY_300,
@@ -69,13 +70,16 @@ export const UserHeader = () => {
   ) => {
     handleToggleCart(event);
   };
+
+  const navigate = useNavigate();
+
   return (
     <AppBar component="nav">
       <StyledLinkToolBar>
         <LinkBar />
       </StyledLinkToolBar>
       <Toolbar>
-        <StyledContainerBox>
+        <StyledContainerBox onClick={() => navigate('/')}>
           <Typography
             variant="h5"
             noWrap

@@ -4,13 +4,16 @@ import * as yup from 'yup';
 import { RegisterFormType, Props } from './types';
 import { useAppDispatch } from '@store/store';
 import {
+  handleCloseGlobalLoading,
   handleCloseRegister,
+  handleOpenGlobalLoading,
   handleOpenLogin,
 } from '@store/slices/statusSlice';
 import { useLoginMutation, useRegisterMutation } from '@apis/AuthApi';
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
 import { setCredentials } from '@store/slices/authSlice';
+import { useEffect } from 'react';
 
 const formSchema = yup
   .object({
@@ -57,6 +60,13 @@ export const RegisterForm = ({ open, handleOpen, handleClose }: Props) => {
   const dispatch = useAppDispatch();
   const [registerFn, { isLoading: RegisterLoading }] = useRegisterMutation();
   const [loginFn, { isLoading: LoginLoading }] = useLoginMutation();
+  useEffect(() => {
+    if (RegisterLoading) {
+      dispatch(handleOpenGlobalLoading());
+    } else {
+      dispatch(handleCloseGlobalLoading());
+    }
+  }, [RegisterLoading]);
   const onRegister = async (data: RegisterFormType) => {
     try {
       await registerFn({
