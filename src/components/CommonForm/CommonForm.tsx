@@ -39,6 +39,8 @@ interface formFieldType {
   type: string;
 }
 
+interface resetedFormFields {}
+
 interface Props<T extends FormData> {
   upperTitle?: string;
   onSubmit: SubmitHandler<T>;
@@ -64,6 +66,7 @@ export const CommonForm = <T extends FormData>({
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<T>({ resolver: yupResolver(formSchema) });
   const [showPasswordButton, setShowPasswordButton] = useState(false);

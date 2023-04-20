@@ -1,3 +1,4 @@
+import { useGetAllCategoriesQuery } from '@apis/ProductApi/productApi';
 import { Images } from '@assets/index';
 import { CategoryHeader } from '@components/CategoryHeader';
 import { Typography } from '@mui/material';
@@ -23,11 +24,12 @@ const list = [
 ];
 
 export const CategoryBar = () => {
+  const { data: allCategories, error, isLoading } = useGetAllCategoriesQuery();
   return (
     <StyledBoxContainer>
       <CategoryHeader color={theme.palette.common.white} size="medium" />
       <StyledDivider></StyledDivider>
-      {list.map((item, index) => (
+      {allCategories?.map((item, index) => (
         <StyledButton key={index}>
           <StyledText>{item}</StyledText>
           <img src={Images.RIGHT} alt="" color={theme.palette.common.white} />

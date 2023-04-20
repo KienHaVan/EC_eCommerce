@@ -35,6 +35,13 @@ const formSchema = yup
   })
   .required();
 
+const resetedFields = {
+  username: '',
+  email: '',
+  password: '',
+  confirmPassword: '',
+};
+
 const formFields = [
   { name: 'username', label: 'User Name', type: 'text' },
   { name: 'email', label: 'Email@example.com', type: 'email' },
@@ -66,12 +73,12 @@ export const RegisterForm = ({ open, handleOpen, handleClose }: Props) => {
       });
       if (result.isConfirmed) {
         dispatch(handleOpenLogin());
-        const auth = await loginFn({
-          email: data.email,
-          password: data.password,
-          deviceId: `deviceId-${data.email}`,
-        }).unwrap();
-        dispatch(setCredentials(auth));
+        // const auth = await loginFn({
+        //   email: data.email,
+        //   password: data.password,
+        //   deviceId: `deviceId-${data.email}`,
+        // }).unwrap();
+        // dispatch(setCredentials(auth));
       }
     } catch (error) {
       toast.error('Register failed!');

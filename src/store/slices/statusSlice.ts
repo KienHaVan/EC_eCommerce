@@ -1,12 +1,14 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 interface StatusStateType {
+  globalLoading: boolean;
   openLogin: boolean;
   openRegister: boolean;
   openResetPassword: boolean;
 }
 
 const initialState: StatusStateType = {
+  globalLoading: false,
   openLogin: false,
   openRegister: false,
   openResetPassword: false,

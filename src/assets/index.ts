@@ -14,4 +14,6 @@ export const Images = {
   LOGO: require('./images/logo.png'),
   CARTHOME: require('./images/cartHome.png'),
   USERHOME: require('./images/userHome.png'),
+  CARTPLUS: require('./images/cartPlus.png'),
+  FREESHIP: require('./images/freeShip.png'),
 };

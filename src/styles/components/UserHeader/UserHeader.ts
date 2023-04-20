@@ -8,6 +8,6 @@ export const StyledContainerBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
-  gap: '24px',
+  gap: '8px',
   padding: '24px 0',
 }));

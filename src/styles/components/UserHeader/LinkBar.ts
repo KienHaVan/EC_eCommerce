@@ -5,6 +5,7 @@ export const StyledBoxContainer = styled(Box)(({ theme }) => ({
   marginLeft: 'auto',
   marginRight: 'auto',
   width: '100%',
+  padding: '10px 0',
 }));
 
 export const StyledButton = styled(Button)(({ theme }) => ({

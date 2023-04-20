@@ -48,6 +48,7 @@ export const LoginForm = ({ open, handleOpen, handleClose }: Props) => {
       const result = await loginFn(LoginRequestData).unwrap();
       dispatch(setCredentials(result));
       toast('Login successfully!');
+      handleClose();
     } catch (error) {
       toast.error('Login Failed!');
     }
