@@ -13,11 +13,18 @@ import {
 import Grid from '@mui/material/Grid';
 import { theme } from '@styles/theme.styles';
 import {
+  StyledBoxBelow,
   StyledBoxContainer,
   StyledBranchBox,
   StyledBranchText,
+  StyledColorBox,
+  StyledColorLabel,
   StyledCouponBox,
   StyledPriceBox,
+  StyledQuantityBox,
+  StyledQuantityButton,
+  StyledQuantityButtonGroup,
+  StyledQuantityText,
   StyledRatingBox,
   StyledSwiperDownImg,
 } from '@styles/views/ProductDetails/ProductInfomation';
@@ -188,7 +195,7 @@ export const ProductInformation = () => {
               </Typography>
             </StyledCouponBox>
           </StyledPriceBox>
-          <Box sx={{ marginTop: '20px' }}>
+          <StyledBoxBelow>
             <Typography
               fontWeight={700}
               fontSize="16px"
@@ -197,18 +204,9 @@ export const ProductInformation = () => {
             >
               Select Color:
             </Typography>
-            <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'row',
-                gap: '20px',
-                marginTop: '20px',
-              }}
-            >
+            <StyledColorBox>
               {colorList.map((item) => (
-                <label
-                  style={{ display: 'block', width: '24px', height: '24px' }}
-                >
+                <StyledColorLabel>
                   <input
                     id={item.id.toString()}
                     type="radio"
@@ -229,11 +227,11 @@ export const ProductInformation = () => {
                           : '0 0 0 5px white',
                     }}
                   ></div>
-                </label>
+                </StyledColorLabel>
               ))}
-            </Box>
-          </Box>
-          <Box sx={{ marginTop: '20px' }}>
+            </StyledColorBox>
+          </StyledBoxBelow>
+          <StyledBoxBelow>
             <Typography
               fontWeight={700}
               fontSize="16px"
@@ -242,27 +240,11 @@ export const ProductInformation = () => {
             >
               Quantity:
             </Typography>
-            <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'row',
-                alignItems: 'center',
-                gap: '20px',
-                marginTop: '12px',
-              }}
-            >
-              <ButtonGroup
+            <StyledQuantityBox>
+              <StyledQuantityButtonGroup
                 variant="outlined"
                 aria-label="outlined button group"
                 color="info"
-                sx={{
-                  backgroundColor: '#E2E4E5',
-                  borderColor: '#33A0FF',
-                  minWidth: '160px',
-                  minHeight: '52px',
-                  display: 'flex',
-                  alignItems: 'stretch',
-                }}
               >
                 <Button>
                   <Typography
@@ -274,13 +256,7 @@ export const ProductInformation = () => {
                   </Typography>
                 </Button>
 
-                <Typography
-                  sx={{ width: '100%', textAlign: 'center' }}
-                  className="center"
-                  fontSize="30px"
-                >
-                  2
-                </Typography>
+                <StyledQuantityText className="center">2</StyledQuantityText>
                 <Button>
                   <Typography
                     fontWeight={700}
@@ -290,23 +266,14 @@ export const ProductInformation = () => {
                     +
                   </Typography>
                 </Button>
-              </ButtonGroup>
-              <Button
-                variant="contained"
-                sx={{
-                  padding: '12px 32px',
-                  display: 'flex',
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  gap: '8px',
-                }}
-              >
+              </StyledQuantityButtonGroup>
+              <StyledQuantityButton variant="contained">
                 <img src={Images.CARTPLUS} alt="" />
                 <Typography>Add to cart</Typography>
-              </Button>
-            </Box>
-          </Box>
-          <Box sx={{ marginTop: '20px' }}>
+              </StyledQuantityButton>
+            </StyledQuantityBox>
+          </StyledBoxBelow>
+          <StyledBoxBelow>
             <Typography
               fontWeight={700}
               fontSize="16px"
@@ -325,7 +292,7 @@ export const ProductInformation = () => {
               //   setValue(newValue);
               // }}
             />
-          </Box>
+          </StyledBoxBelow>
         </StyledBoxContainer>
       </Grid>
     </Grid>

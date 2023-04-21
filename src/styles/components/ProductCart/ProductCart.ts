@@ -12,6 +12,7 @@ export const StyledBoxContainer = styled(Box)(({ theme }) => ({
   border: '1px solid #B4B1B1',
   borderRadius: '5px',
   backgroundColor: theme.palette.common.white,
+  minHeight: '472px',
 }));
 
 export const StyledImg = styled('img')(({ theme }) => ({

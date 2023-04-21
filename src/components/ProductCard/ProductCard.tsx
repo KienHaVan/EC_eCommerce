@@ -35,6 +35,8 @@ export const ProductCard = ({
           fontSize={'32px'}
           lineHeight={'37px'}
           marginBottom={'4px'}
+          className="textClamp"
+          flex={1}
         >
           {product.name}
         </Typography>

@@ -25,3 +25,11 @@ body {
 .my-sweetalert2-popup-class {
   z-index: 9999;
 }
+
+.textClamp {
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2 !important;
+  -webkit-box-orient: vertical !important ;
+  overflow: hidden !important;
+  overflow-wrap: break-word !important;
+}
