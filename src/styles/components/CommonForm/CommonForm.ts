@@ -1,11 +1,9 @@
-import { Box, Button, styled } from '@mui/material';
+import { Box, Button, FormControl, Typography, styled } from '@mui/material';
 
 export const StyledBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
-  // paddingLeft: '60px',
-  // paddingRight: '60px',
   gap: '12px',
   padding: '60px',
   borderRadius: '20px',
@@ -30,4 +28,14 @@ export const StyledSupportButton = styled(Button)(({ theme }) => ({
   marginTop: '-8px',
   width: 'fit-content',
   alignSelf: 'center',
+}));
+
+export const StyledFormControl = styled(FormControl)(({ theme }) => ({
+  width: '100%',
+}));
+
+export const StyledSubmitButtonText = styled(Typography)(({ theme }) => ({
+  fontWeight: '700',
+  fontSize: '24px',
+  textTransform: 'none',
 }));

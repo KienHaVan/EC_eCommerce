@@ -136,6 +136,13 @@ export const AdminSideBar = () => {
   const toggleDrawer = () => {
     setOpen(!open);
   };
+  const toggleMenu = (id: number) => {
+    if (id === idChosen) {
+      setIdChosen(0);
+    } else {
+      setIdChosen(id);
+    }
+  };
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -202,13 +209,7 @@ export const AdminSideBar = () => {
             <ListItem key={index} disablePadding sx={{ display: 'block' }}>
               <StyledListItemButton
                 sx={{ justifyContent: open ? 'initial' : 'center' }}
-                onClick={() => {
-                  if (item.id === idChosen) {
-                    setIdChosen(0);
-                  } else {
-                    setIdChosen(item.id);
-                  }
-                }}
+                onClick={() => toggleMenu(item.id)}
               >
                 <img src={item.icon} alt="" />
                 <ListItemText

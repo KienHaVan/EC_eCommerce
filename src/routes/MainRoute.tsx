@@ -43,9 +43,9 @@ export const MainRoute = () => {
           path={`${PATH.PRODUCT_DETAILS}/:productId`}
           element={<ProductDetails />}
         />
+        {/* <Route path="/" element={<Navigate to={PATH.HOME} />} /> */}
         {/* User */}
         <Route element={<RequireAuth allowedRole={ROLE.USER} />}>
-          <Route path="/" element={<Navigate to={PATH.HOME} />} />
           <Route path={PATH.CHECKOUT} element={<Checkout />} />
           <Route path={PATH.SHOPPING_CART} element={<ShoppingCart />} />
           <Route path={PATH.USER_DETAIL} element={<UserDetail />} />
@@ -56,6 +56,7 @@ export const MainRoute = () => {
           <Route path={PATH.DASHBOARD} element={<Dashboard />} />
         </Route>
       </Route>
+      <Route path={PATH.ERROR} element={<ErrorPage />} />
       <Route path="*" element={<ErrorPage />} />
     </Routes>
   );

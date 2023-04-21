@@ -61,9 +61,10 @@ export const UserHeader = () => {
   ) => {
     if (user) {
       handleToggleAvatar(event);
-      return;
+      console.log('user');
+    } else {
+      dispatch(handleOpenLogin());
     }
-    dispatch(handleOpenLogin());
   };
   const handleClickCart = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>

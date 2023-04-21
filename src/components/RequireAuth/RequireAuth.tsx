@@ -12,6 +12,6 @@ export const RequireAuth = ({ allowedRole }: { allowedRole: RoleType }) => {
   return user && user.role === allowedRole ? (
     <Outlet />
   ) : (
-    <Navigate to={'/login'} replace />
+    <Navigate to={'/'} replace />
   );
 };

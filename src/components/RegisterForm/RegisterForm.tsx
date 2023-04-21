@@ -14,6 +14,7 @@ import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
 import { setCredentials } from '@store/slices/authSlice';
 import { useEffect } from 'react';
+import { InputType } from '@appTypes/form.types';
 
 const formSchema = yup
   .object({
@@ -38,7 +39,7 @@ const formSchema = yup
   })
   .required();
 
-const resetedFields = {
+const resetedValue = {
   username: '',
   email: '',
   password: '',
@@ -46,13 +47,13 @@ const resetedFields = {
 };
 
 const formFields = [
-  { name: 'username', label: 'User Name', type: 'text' },
-  { name: 'email', label: 'Email@example.com', type: 'email' },
-  { name: 'password', label: 'Password', type: 'password' },
+  { name: 'username', label: 'User Name', type: 'text' as InputType },
+  { name: 'email', label: 'Email@example.com', type: 'email' as InputType },
+  { name: 'password', label: 'Password', type: 'password' as InputType },
   {
     name: 'confirmPassword',
     label: 'Confirm Password',
-    type: 'password',
+    type: 'password' as InputType,
   },
 ];
 
@@ -115,6 +116,7 @@ export const RegisterForm = ({ open, handleOpen, handleClose }: Props) => {
         onSubmit={onRegister}
         submitButtonText="Register"
         formFields={formFields}
+        resetedValue={resetedValue}
         formSchema={formSchema}
         mode="show"
         supportButton={supportButton}

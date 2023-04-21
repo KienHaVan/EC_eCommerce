@@ -1,7 +1,7 @@
 import { RoleType } from '@appTypes/auth.types';
 
 export const PATH = {
-  HOME: '/home',
+  HOME: '/',
   CHECKOUT: '/checkout',
   DASHBOARD: '/dashboard',
   ERROR: '/error',

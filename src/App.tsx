@@ -5,9 +5,7 @@ import { MainRoute } from './routes';
 const App = () => {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/*" element={<MainRoute />} />
-      </Routes>
+      <MainRoute />
     </BrowserRouter>
   );
 };
