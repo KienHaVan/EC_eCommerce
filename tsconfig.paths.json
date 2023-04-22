@@ -5,7 +5,7 @@
       "@apis/*": ["./apis/*"],
       "@assets/*": ["./assets/*"],
       "@components/*": ["./components/*"],
-      "@context/*": ["./context/*"],
+      "@HOC/*": ["./HOC/*"],
       "@hooks/*": ["./hooks/*"],
       "@routes/*": ["./routes/*"],
       "@store/*": ["./store/*"],

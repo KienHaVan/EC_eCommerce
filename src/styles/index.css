@@ -12,6 +12,10 @@ code {
     monospace;
 } */
 
+html {
+  scroll-behavior: smooth; /* Add smooth scroll behavior */
+}
+
 body {
   font-family: 'Red Rose', cursive !important;
 }

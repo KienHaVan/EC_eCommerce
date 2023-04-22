@@ -1,10 +1,13 @@
 import { Box, styled } from '@mui/material';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
 
-export const StyledDivContainer = styled('div')(({ theme }) => ({
+export const StyledDivContainer = styled(Card)(({ theme }) => ({
   cursor: 'pointer',
 }));
 
-export const StyledBoxContainer = styled(Box)(({ theme }) => ({
+export const StyledBoxContainer = styled(CardContent)(({ theme }) => ({
   padding: '20px 24px',
   display: 'flex',
   flexDirection: 'column',

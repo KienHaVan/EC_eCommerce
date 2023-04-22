@@ -11,6 +11,11 @@ import {
   StyledTab,
   StyledTabs,
 } from '@styles/views/ProductDetails/InfoAndReviews';
+import {
+  selectCurrentProduct,
+  selectCurrentReview,
+} from '@store/slices/productSlice';
+import { useAppSelector } from '@store/store';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -53,7 +58,8 @@ export const InfoAndReviews = () => {
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
-
+  const product = useAppSelector(selectCurrentProduct);
+  const review = useAppSelector(selectCurrentReview);
   return (
     <StyledBoxContainer>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
@@ -67,10 +73,14 @@ export const InfoAndReviews = () => {
         </StyledTabs>
       </Box>
       <TabPanel value={value} index={TAB.DESCRIPTION}>
-        Item One
+        <Typography fontWeight={700} fontSize="28px" lineHeight="33px">
+          {product?.description}
+        </Typography>
       </TabPanel>
       <TabPanel value={value} index={TAB.SPECIALIZATION}>
-        Item Two
+        <Typography fontWeight={700} fontSize="28px" lineHeight="33px">
+          {product?.description}
+        </Typography>
       </TabPanel>
       <TabPanel value={value} index={TAB.REVIEWS}>
         <Box sx={{ display: 'flex', flexDirection: 'column' }}>

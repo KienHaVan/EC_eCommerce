@@ -31,27 +31,6 @@ import Stack from '@mui/material/Stack';
 
 export const Home = () => {
   const dispatch = useAppDispatch();
-  const { openLogin, openRegister, openResetPassword } = useAppSelector(
-    (state: RootState) => state.status
-  );
-  const onOpenLogin = () => {
-    dispatch(handleOpenLogin());
-  };
-  const onCloseLogin = () => {
-    dispatch(handleCloseLogin());
-  };
-  const onOpenRegister = () => {
-    dispatch(handleOpenRegister());
-  };
-  const onCloseRegister = () => {
-    dispatch(handleCloseRegister());
-  };
-  const onOpenResetPassword = () => {
-    dispatch(handleOpenResetPassword());
-  };
-  const onCloseResetPassword = () => {
-    dispatch(handleCloseResetPassword());
-  };
   const [pagination, setPagination] = useState({
     page: 1,
     size: 8,
@@ -77,6 +56,7 @@ export const Home = () => {
     size: pagination.size,
     category: categoryChosen || undefined,
   });
+  console.log(allProducts);
 
   useEffect(() => {
     setPagination({
@@ -114,22 +94,6 @@ export const Home = () => {
           />
         </Stack>
       </Box>
-
-      <LoginForm
-        open={openLogin}
-        handleOpen={onOpenLogin}
-        handleClose={onCloseLogin}
-      />
-      <RegisterForm
-        open={openRegister}
-        handleOpen={onOpenRegister}
-        handleClose={onCloseRegister}
-      />
-      <ForgotPasswordForm
-        open={openResetPassword}
-        handleOpen={onOpenResetPassword}
-        handleClose={onCloseResetPassword}
-      />
     </>
   );
 };

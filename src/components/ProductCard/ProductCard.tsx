@@ -15,8 +15,12 @@ import {
   StyledImg,
 } from '@styles/components/ProductCart/ProductCart';
 import { theme } from '@styles/theme.styles';
+import { encodeData, encryptData } from '@utils/cryptData';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
 
 export const ProductCard = ({
   product,
@@ -24,10 +28,13 @@ export const ProductCard = ({
   product: GetAllProductsResultType;
 }) => {
   const navigate = useNavigate();
+  const handleChooseProduct = () => {
+    const encodedId: string = encodeData(product.id);
+    // navigate(`${PATH.PRODUCT_DETAILS}/${encodedId}`);
+    navigate(`${PATH.PRODUCT_DETAILS}/${product.id}`);
+  };
   return (
-    <StyledDivContainer
-      onClick={() => navigate(`${PATH.PRODUCT_DETAILS}/${product.id}`)}
-    >
+    <StyledDivContainer onClick={handleChooseProduct}>
       <StyledBoxContainer>
         <StyledImg src={product.images[0].url} alt="" />
         <Typography

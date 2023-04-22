@@ -1,5 +1,7 @@
 import apiSlice from '@apis/apiSlice';
 import {
+  CreateReviewForProductRequestType,
+  CreateReviewForProductResponseType,
   GetAllCategoriesResponseType,
   GetAllProductsDataType,
   GetAllProductsParamsType,
@@ -29,9 +31,31 @@ export const productApiSlice = apiSlice.injectEndpoints({
       query: ({ productId }) => ({
         url: `v1/products/${productId}`,
         method: 'GET',
-        transformResponse: (response: { data: GetProductByIDDataType }) =>
-          response.data,
       }),
+      transformResponse: (response: { data: GetProductByIDDataType }) =>
+        response.data,
+      providesTags: (result, error, arg) => [
+        {
+          type: 'Product',
+          id: arg.productId,
+        },
+      ],
+    }),
+    createReviewForProduct: builder.mutation<
+      CreateReviewForProductResponseType,
+      CreateReviewForProductRequestType
+    >({
+      query: (data) => ({
+        url: `/v1/products/${data.productId}/reviews`,
+        method: 'POST',
+        body: data,
+      }),
+      invalidatesTags: (result, error, arg) => [
+        {
+          type: 'Product',
+          id: arg.productId,
+        },
+      ],
     }),
     getAllCategories: builder.query<string[], void>({
       query: () => 'v1/products/get-all-categories',
@@ -43,5 +67,6 @@ export const productApiSlice = apiSlice.injectEndpoints({
 export const {
   useGetAllProductsQuery,
   useGetProductByIdQuery,
+  useCreateReviewForProductMutation,
   useGetAllCategoriesQuery,
 } = productApiSlice;

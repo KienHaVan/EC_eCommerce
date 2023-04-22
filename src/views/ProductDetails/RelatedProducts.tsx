@@ -3,80 +3,55 @@ import { Box, Button, Divider, Typography } from '@mui/material';
 import { theme } from '@styles/theme.styles';
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-
+import { Navigation } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { useGetAllProductsQuery } from '@apis/ProductApi';
 import { ProductCard } from '@components/ProductCard';
+import { nanoid } from '@reduxjs/toolkit';
+import {
+  StyledBoxContainer,
+  StyledBoxHeader,
+  StyledContentBox,
+  StyledLineHeader,
+  StyledNextButton,
+  StyledPreviousButton,
+} from '@styles/views/ProductDetails/RelatedProducts';
 
 export const RelatedProducts = () => {
   const { data: allProducts, error, isLoading } = useGetAllProductsQuery({});
   return (
-    <Box
-      sx={{
-        marginTop: '28px',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '12px',
-        alignItems: 'flex-start',
-      }}
-    >
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'row',
-          alignItems: 'center',
-          gap: '12px',
-          width: '100%',
-        }}
-      >
+    <StyledBoxContainer>
+      <StyledBoxHeader>
         <Typography fontWeight={700} fontSize="24px" lineHeight="28px">
           Related Products
         </Typography>
-        <div
-          style={{
-            height: '2px',
-            width: '100%',
-            flex: 1,
-            display: 'block',
-            backgroundColor: theme.palette.common.GREY_400,
-            borderRadius: '60px',
-          }}
-        ></div>
-        <Button
-          className="center"
-          sx={{
-            width: '26px',
-            height: '26px',
-            borderRadius: '5px',
-            backgroundColor: theme.palette.common.GREY_300,
-            minWidth: 'unset',
-          }}
-        >
+        <StyledLineHeader />
+        <StyledPreviousButton className="center my-swiper-button-prev">
           <img src={Images.RELATEDLEFT} alt="" />
-        </Button>
-        <Button
-          className="center"
-          sx={{
-            width: '26px',
-            height: '26px',
-            borderRadius: '5px',
-            backgroundColor: theme.palette.common.GREY_300,
-            minWidth: 'unset',
-          }}
-        >
+        </StyledPreviousButton>
+        <StyledNextButton className="center my-swiper-button-next">
           <img src={Images.RELATEDRIGHT} alt="" />
-        </Button>
-      </Box>
-      <Box sx={{ width: '100%', overflow: 'hidden', marginBottom: '20px' }}>
-        <Swiper slidesPerView={4} spaceBetween={30} className="mySwiper">
+        </StyledNextButton>
+      </StyledBoxHeader>
+      <StyledContentBox>
+        <Swiper
+          slidesPerView={4}
+          spaceBetween={30}
+          className="mySwiper"
+          navigation={{
+            prevEl: '.my-swiper-button-prev',
+            nextEl: '.my-swiper-button-next',
+          }}
+          modules={[Navigation]}
+        >
           {allProducts?.result.map((item) => (
-            <SwiperSlide>
+            <SwiperSlide key={nanoid()}>
               <ProductCard product={item} />
             </SwiperSlide>
           ))}
         </Swiper>
-      </Box>
-    </Box>
+      </StyledContentBox>
+    </StyledBoxContainer>
   );
 };

@@ -61,7 +61,6 @@ export const UserHeader = () => {
   ) => {
     if (user) {
       handleToggleAvatar(event);
-      console.log('user');
     } else {
       dispatch(handleOpenLogin());
     }

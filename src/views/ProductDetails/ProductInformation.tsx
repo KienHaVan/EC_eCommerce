@@ -11,6 +11,9 @@ import {
   Typography,
 } from '@mui/material';
 import Grid from '@mui/material/Grid';
+import { nanoid } from '@reduxjs/toolkit';
+import { selectCurrentProduct } from '@store/slices/productSlice';
+import { useAppSelector } from '@store/store';
 import { theme } from '@styles/theme.styles';
 import {
   StyledBoxBelow,
@@ -58,10 +61,7 @@ const colorList = [
 export const ProductInformation = () => {
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperCore | null>(null);
   const [colorChosen, setColorChosen] = useState(1);
-  console.log(
-    '🚀 ~ file: ProductInformation.tsx:51 ~ ProductInformation ~ colorChosen:',
-    colorChosen
-  );
+  const product = useAppSelector(selectCurrentProduct);
   return (
     <Grid container spacing={2}>
       <Grid item xs={5}>
@@ -76,13 +76,9 @@ export const ProductInformation = () => {
             borderRadius: '5px',
           }}
         >
-          {new Array(7).fill(0).map((item, index) => (
-            <SwiperSlide>
-              <img
-                src={`https://swiperjs.com/demos/images/nature-${
-                  index + 1
-                }.jpg`}
-              />
+          {product?.images.map((image, index) => (
+            <SwiperSlide key={nanoid()}>
+              <img src={image.url} />
             </SwiperSlide>
           ))}
         </Swiper>
@@ -97,19 +93,16 @@ export const ProductInformation = () => {
           className="mySwiper"
           style={{ marginTop: '20px', height: '87px' }}
         >
-          {new Array(7).fill(0).map((item, index) => (
+          {product?.images.map((image, index) => (
             <SwiperSlide
+              key={nanoid()}
               style={{
                 width: '87px',
                 border: '1px solid #000000',
                 borderRadius: '5px',
               }}
             >
-              <StyledSwiperDownImg
-                src={`https://swiperjs.com/demos/images/nature-${
-                  index + 1
-                }.jpg`}
-              />
+              <StyledSwiperDownImg src={image.url} />
             </SwiperSlide>
           ))}
         </Swiper>
@@ -117,10 +110,10 @@ export const ProductInformation = () => {
       <Grid item xs={7}>
         <StyledBoxContainer>
           <Typography fontWeight={700} fontSize="40px" lineHeight="47px">
-            SHOES ADIDAS ULTRABOOST 21
+            {product?.name}
           </Typography>
           <StyledRatingBox>
-            <Rating name="read-only" value={5} readOnly />
+            <Rating name="read-only" value={product?.rating} readOnly />
             <Divider orientation="vertical" flexItem />
             <Typography
               fontWeight={700}
@@ -128,7 +121,7 @@ export const ProductInformation = () => {
               lineHeight="19px"
               color={theme.palette.secondary.main}
             >
-              150 Reviews
+              {product?.numOfReviews} Reviews
             </Typography>
             <Divider orientation="vertical" flexItem />
             <Typography
@@ -137,23 +130,28 @@ export const ProductInformation = () => {
               lineHeight="19px"
               color={theme.palette.secondary.main}
             >
-              3k Sold
+              {product?.countInStock} Sold
             </Typography>
           </StyledRatingBox>
-          <Typography fontWeight={400} fontSize="16px" lineHeight="19px">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
-            ornare, mi in ornare elementum, libero nibh lacinia urna, quis
-            convallis lorem erat at purus. Maecenas eu varius nisi
+          <Typography
+            fontWeight={400}
+            fontSize="16px"
+            lineHeight="19px"
+            className="textClamp"
+          >
+            {product?.description}
           </Typography>
           <Divider sx={{ margin: '20px 0' }} />
           <StyledBranchBox>
-            <StyledBranchText
-              fontWeight={700}
-              fontSize="16px"
-              lineHeight="19px"
-              color={theme.palette.common.GREY_500}
-            >
-              Availability:
+            <StyledBranchText>
+              <Typography
+                fontWeight={700}
+                fontSize="16px"
+                lineHeight="19px"
+                color={theme.palette.common.GREY_500}
+              >
+                Availability:
+              </Typography>
               <Typography
                 fontWeight={700}
                 fontSize="16px"
@@ -169,7 +167,7 @@ export const ProductInformation = () => {
               lineHeight="19px"
               color={theme.palette.common.GREY_500}
             >
-              Brand: Adiddas
+              Brand: {product?.brand}
             </Typography>
             <Typography
               fontWeight={700}
@@ -177,12 +175,12 @@ export const ProductInformation = () => {
               lineHeight="19px"
               color={theme.palette.common.GREY_500}
             >
-              SKU: 83690/32
+              SKU: 83690/{product?.id}
             </Typography>
           </StyledBranchBox>
           <StyledPriceBox>
             <Typography fontWeight={700} fontSize="32px" lineHeight="38px">
-              $ 120.00
+              $ {product?.price.toFixed(2)}
             </Typography>
             <StyledCouponBox>
               <Typography
@@ -206,7 +204,7 @@ export const ProductInformation = () => {
             </Typography>
             <StyledColorBox>
               {colorList.map((item) => (
-                <StyledColorLabel>
+                <StyledColorLabel key={nanoid()}>
                   <input
                     id={item.id.toString()}
                     type="radio"
@@ -284,8 +282,9 @@ export const ProductInformation = () => {
             </Typography>
             <Rating
               name="simple-controlled"
-              value={5}
+              value={product?.rating}
               size="large"
+              readOnly
               sx={{ marginTop: '8px' }}
               // value={value}
               // onChange={(event, newValue) => {

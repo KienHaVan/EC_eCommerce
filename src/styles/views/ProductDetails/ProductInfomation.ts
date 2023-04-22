@@ -27,7 +27,7 @@ export const StyledBranchBox = styled(Box)(({ theme }) => ({
   gap: '50px',
 }));
 
-export const StyledBranchText = styled(Typography)(({ theme }) => ({
+export const StyledBranchText = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'row',
   gap: '4px',

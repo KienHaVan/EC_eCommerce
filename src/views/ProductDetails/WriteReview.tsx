@@ -1,8 +1,24 @@
 import { Box, Button, Rating, TextField, Typography } from '@mui/material';
+import { selectCurrentUser } from '@store/slices/authSlice';
+import { selectCurrentProduct } from '@store/slices/productSlice';
+import { handleOpenLogin } from '@store/slices/statusSlice';
+import { useAppDispatch, useAppSelector } from '@store/store';
 import { theme } from '@styles/theme.styles';
-import React from 'react';
+import React, { useState } from 'react';
 
 export const WriteReview = () => {
+  const [rating, setRating] = useState<number | null>(null);
+  const [content, setContent] = useState('');
+  const product = useAppSelector(selectCurrentProduct);
+  const user = useAppSelector(selectCurrentUser);
+  const dispatch = useAppDispatch();
+  const handlePostReview = async () => {
+    if (user) {
+      console.log('Post review');
+    } else {
+      dispatch(handleOpenLogin());
+    }
+  };
   return (
     <Box
       sx={{
@@ -17,11 +33,10 @@ export const WriteReview = () => {
         Write Review
       </Typography>
       <Rating
-        value={5}
-        // value={value}
-        // onChange={(event, newValue) => {
-        //   setValue(newValue);
-        // }}
+        value={rating}
+        onChange={(event, newValue) => {
+          setRating(newValue);
+        }}
       />
       <TextField label="Write your reviews" multiline rows={3} fullWidth />
       <Button
@@ -31,6 +46,7 @@ export const WriteReview = () => {
           borderRadius: '5px',
           textTransform: 'none',
         }}
+        onClick={handlePostReview}
       >
         <Typography fontWeight={700} fontSize="16px" lineHeight="18px">
           Post Your Review
