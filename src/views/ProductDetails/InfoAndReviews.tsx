@@ -62,18 +62,18 @@ export const InfoAndReviews = () => {
   const review = useAppSelector(selectCurrentReview);
   const [value, setValue] = React.useState(1);
   const [pagination, setPagination] = React.useState(1);
-  const [reviews, setReviews] = React.useState<ReviewResultType[]>([]);
+  // const [reviews, setReviews] = React.useState<ReviewResultType[]>([]);
 
-  React.useEffect(() => {
-    if (review?.result) {
-      setReviews(
-        review?.result.slice(
-          (pagination - 1) * reviewPerPage,
-          pagination * reviewPerPage
-        )
-      );
-    }
-  }, [pagination]);
+  // React.useEffect(() => {
+  //   if (review?.result) {
+  //     setReviews(
+  //       review?.result.slice(
+  //         (pagination - 1) * reviewPerPage,
+  //         pagination * reviewPerPage
+  //       )
+  //     );
+  //   }
+  // }, [pagination]);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -116,12 +116,14 @@ export const InfoAndReviews = () => {
           >
             Customer Reviews
           </Typography>
-          {reviews.map((review) => (
-            <Box key={nanoid()}>
-              <CustomerReview review={review} />
-              <Divider sx={{ margin: '6px 0' }} />
-            </Box>
-          ))}
+          {review?.result
+            .slice((pagination - 1) * reviewPerPage, pagination * reviewPerPage)
+            .map((review) => (
+              <Box key={nanoid()}>
+                <CustomerReview review={review} />
+                <Divider sx={{ margin: '6px 0' }} />
+              </Box>
+            ))}
           <Stack
             spacing={2}
             margin="20px 0"
