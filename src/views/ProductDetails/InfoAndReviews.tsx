@@ -16,6 +16,9 @@ import {
   selectCurrentReview,
 } from '@store/slices/productSlice';
 import { useAppSelector } from '@store/store';
+import { GetProductByIDReviewsResultType } from '@apis/ProductApi/types';
+import { ReviewResultType, ReviewType } from '@appTypes/product.types';
+import { nanoid } from '@reduxjs/toolkit';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -52,14 +55,35 @@ function a11yProps(index: number) {
   };
 }
 
+const reviewPerPage = 3;
+
 export const InfoAndReviews = () => {
-  const [value, setValue] = React.useState(0);
+  const product = useAppSelector(selectCurrentProduct);
+  const review = useAppSelector(selectCurrentReview);
+  const [value, setValue] = React.useState(1);
+  const [pagination, setPagination] = React.useState(1);
+  const [reviews, setReviews] = React.useState<ReviewResultType[]>([]);
+
+  React.useEffect(() => {
+    if (review?.result) {
+      setReviews(
+        review?.result.slice(
+          (pagination - 1) * reviewPerPage,
+          pagination * reviewPerPage
+        )
+      );
+    }
+  }, [pagination]);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
-  const product = useAppSelector(selectCurrentProduct);
-  const review = useAppSelector(selectCurrentReview);
+  const handleChangePagination = (
+    event: React.ChangeEvent<unknown>,
+    value: number
+  ) => {
+    setPagination(value);
+  };
   return (
     <StyledBoxContainer>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
@@ -92,12 +116,12 @@ export const InfoAndReviews = () => {
           >
             Customer Reviews
           </Typography>
-          <CustomerReview />
-          <Divider sx={{ margin: '6px 0' }} />
-          <CustomerReview />
-          <Divider sx={{ margin: '6px 0' }} />
-          <CustomerReview />
-          <Divider sx={{ margin: '6px 0' }} />
+          {reviews.map((review) => (
+            <Box key={nanoid()}>
+              <CustomerReview review={review} />
+              <Divider sx={{ margin: '6px 0' }} />
+            </Box>
+          ))}
           <Stack
             spacing={2}
             margin="20px 0"
@@ -105,11 +129,11 @@ export const InfoAndReviews = () => {
             alignSelf="center"
           >
             <Pagination
-              count={6}
+              count={Math.ceil((review?.total as number) / reviewPerPage) || 1}
               color="primary"
-              page={1}
+              page={pagination}
               shape="rounded"
-              // onChange={handleChangePagination}
+              onChange={handleChangePagination}
             />
           </Stack>
         </Box>

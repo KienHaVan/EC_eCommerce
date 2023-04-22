@@ -22,7 +22,19 @@ export interface ProductImageType {
 
 export interface ReviewType {
   total: number;
-  result: string[];
+  result: ReviewResultType[];
   totalPages: number;
   currentPage: number;
+}
+
+export interface ReviewResultType {
+  content: string;
+  rating: number;
+  createdAt: string;
+  userReview: UserReviewType;
+}
+
+export interface UserReviewType {
+  username: string;
+  avatar: null;
 }

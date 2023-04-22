@@ -113,7 +113,7 @@ export const ProductInformation = () => {
             {product?.name}
           </Typography>
           <StyledRatingBox>
-            <Rating name="read-only" value={product?.rating} readOnly />
+            <Rating name="read-only" value={product?.rating || 0} readOnly />
             <Divider orientation="vertical" flexItem />
             <Typography
               fontWeight={700}
@@ -281,15 +281,11 @@ export const ProductInformation = () => {
               Rate:
             </Typography>
             <Rating
-              name="simple-controlled"
-              value={product?.rating}
+              value={product?.rating || 0}
               size="large"
               readOnly
+              name="read-only"
               sx={{ marginTop: '8px' }}
-              // value={value}
-              // onChange={(event, newValue) => {
-              //   setValue(newValue);
-              // }}
             />
           </StyledBoxBelow>
         </StyledBoxContainer>
