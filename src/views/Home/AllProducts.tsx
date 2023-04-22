@@ -4,6 +4,11 @@ import { Box, Button, Typography } from '@mui/material';
 import { nanoid } from '@reduxjs/toolkit';
 import { RootState, useAppSelector } from '@store/store';
 import { theme } from '@styles/theme.styles';
+import {
+  StyledBoxContainer,
+  StyledBoxDown,
+  StyledMoreButton,
+} from '@styles/views/Home/AllProducts';
 import React from 'react';
 
 interface Props {
@@ -16,27 +21,11 @@ export const AllProducts = ({ allProducts }: Props) => {
   );
   return (
     <>
-      <Box
-        sx={{
-          padding: '8px 28px',
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          margin: '20px 0',
-        }}
-      >
+      <StyledBoxContainer>
         <Typography fontWeight={700} fontSize={'22px'} lineHeight={'25px'}>
           {!categoryChosen ? 'Products' : categoryChosen}
         </Typography>
-        <Button
-          sx={{
-            padding: '8px 16px',
-            border: '1px solid #F0E36A',
-            borderRadius: '56px',
-            textTransform: 'none',
-          }}
-        >
+        <StyledMoreButton>
           <Typography
             fontWeight={700}
             fontSize={'16px'}
@@ -45,19 +34,13 @@ export const AllProducts = ({ allProducts }: Props) => {
           >
             Show more ...
           </Typography>
-        </Button>
-      </Box>
-      <Box
-        sx={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(4, 1fr)',
-          gap: '12px',
-        }}
-      >
+        </StyledMoreButton>
+      </StyledBoxContainer>
+      <StyledBoxDown>
         {allProducts?.result.map((product) => (
           <ProductCard product={product} key={nanoid()} />
         ))}
-      </Box>
+      </StyledBoxDown>
     </>
   );
 };

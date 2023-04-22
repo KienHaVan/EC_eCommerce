@@ -15,6 +15,7 @@ import {
   handleOpenResetPassword,
 } from '@store/slices/statusSlice';
 import { useEffect } from 'react';
+import { InputType } from '@appTypes/form.types';
 
 const formSchema = yup
   .object({
@@ -33,9 +34,13 @@ const formFields = [
   {
     name: 'email',
     label: 'Email@example.com',
-    type: 'email',
+    type: 'email' as InputType,
   },
 ];
+
+const resetedValue = {
+  email: '',
+};
 
 export const ForgotPasswordForm = ({
   open,
@@ -68,7 +73,7 @@ export const ForgotPasswordForm = ({
     text: 'Login',
     onClick: () => {
       dispatch(handleCloseResetPassword());
-      dispatch(handleOpenResetPassword());
+      dispatch(handleOpenLogin());
     },
   };
   return (
@@ -78,6 +83,7 @@ export const ForgotPasswordForm = ({
         onSubmit={onResetPassword}
         submitButtonText="Reset Password"
         formFields={formFields}
+        resetedValue={resetedValue}
         formSchema={formSchema}
         supportButton={supportButton}
       />

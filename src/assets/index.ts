@@ -16,4 +16,6 @@ export const Images = {
   USERHOME: require('./images/userHome.png'),
   CARTPLUS: require('./images/cartPlus.png'),
   FREESHIP: require('./images/freeShip.png'),
+  RELATEDLEFT: require('./images/relatedLeft.png'),
+  RELATEDRIGHT: require('./images/relatedRight.png'),
 };

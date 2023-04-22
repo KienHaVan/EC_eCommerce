@@ -31,27 +31,6 @@ import Stack from '@mui/material/Stack';
 
 export const Home = () => {
   const dispatch = useAppDispatch();
-  const { openLogin, openRegister, openResetPassword } = useAppSelector(
-    (state: RootState) => state.status
-  );
-  const onOpenLogin = () => {
-    dispatch(handleOpenLogin());
-  };
-  const onCloseLogin = () => {
-    dispatch(handleCloseLogin());
-  };
-  const onOpenRegister = () => {
-    dispatch(handleOpenRegister());
-  };
-  const onCloseRegister = () => {
-    dispatch(handleCloseRegister());
-  };
-  const onOpenResetPassword = () => {
-    dispatch(handleOpenResetPassword());
-  };
-  const onCloseResetPassword = () => {
-    dispatch(handleCloseResetPassword());
-  };
   const [pagination, setPagination] = useState({
     page: 1,
     size: 8,
@@ -75,8 +54,16 @@ export const Home = () => {
   } = useGetAllProductsQuery({
     page: pagination.page,
     size: pagination.size,
-    category: categoryChosen,
+    category: categoryChosen || undefined,
   });
+  console.log(allProducts);
+
+  useEffect(() => {
+    setPagination({
+      page: 1,
+      size: 8,
+    });
+  }, [categoryChosen]);
 
   useEffect(() => {
     if (isLoading) {
@@ -87,40 +74,26 @@ export const Home = () => {
   }, [isLoading]);
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-      <Box sx={{ display: 'flex', flexDirection: 'row', gap: '10px' }}>
-        <CategoryBar />
-        <FeaturedProducts />
+    <>
+      <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+        <Box sx={{ display: 'flex', flexDirection: 'row', gap: '10px' }}>
+          <CategoryBar />
+          <FeaturedProducts />
+        </Box>
+
+        <SpecialCoupons />
+
+        <AllProducts allProducts={allProducts} />
+
+        <Stack spacing={2} margin="20px 0" marginX={'auto'}>
+          <Pagination
+            count={allProducts?.totalPages}
+            color="primary"
+            page={pagination.page}
+            onChange={handleChangePagination}
+          />
+        </Stack>
       </Box>
-
-      <SpecialCoupons />
-
-      <AllProducts allProducts={allProducts} />
-
-      <Stack spacing={2} margin="20px 0" marginX={'auto'}>
-        <Pagination
-          count={allProducts?.totalPages}
-          color="primary"
-          page={pagination.page}
-          onChange={handleChangePagination}
-        />
-      </Stack>
-
-      <LoginForm
-        open={openLogin}
-        handleOpen={onOpenLogin}
-        handleClose={onCloseLogin}
-      />
-      <RegisterForm
-        open={openRegister}
-        handleOpen={onOpenRegister}
-        handleClose={onCloseRegister}
-      />
-      <ForgotPasswordForm
-        open={openResetPassword}
-        handleOpen={onOpenResetPassword}
-        handleClose={onCloseResetPassword}
-      />
-    </Box>
+    </>
   );
 };

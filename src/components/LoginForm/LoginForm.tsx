@@ -14,6 +14,7 @@ import {
   handleOpenRegister,
 } from '@store/slices/statusSlice';
 import { useEffect } from 'react';
+import { InputType } from '@appTypes/form.types';
 
 const formSchema = yup
   .object({
@@ -34,9 +35,14 @@ const formSchema = yup
   .required();
 
 const formFields = [
-  { name: 'email', label: 'Email@gmail.com', type: 'email' },
-  { name: 'password', label: 'Password', type: 'password' },
+  { name: 'email', label: 'Email@gmail.com', type: 'email' as InputType },
+  { name: 'password', label: 'Password', type: 'password' as InputType },
 ];
+
+const resetedValue = {
+  email: '',
+  password: '',
+};
 
 export const LoginForm = ({ open, handleOpen, handleClose }: Props) => {
   const [loginFn, { isLoading }] = useLoginMutation();
@@ -79,6 +85,7 @@ export const LoginForm = ({ open, handleOpen, handleClose }: Props) => {
       <CommonForm<any>
         onSubmit={onLogin}
         submitButtonText="Login"
+        resetedValue={resetedValue}
         formFields={formFields}
         formSchema={formSchema}
         mode="forgot"

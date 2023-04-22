@@ -17,7 +17,9 @@ import {
 import {
   StyledBox,
   StyledButton,
+  StyledFormControl,
   StyledPasswordButton,
+  StyledSubmitButtonText,
   StyledSupportButton,
 } from '@styles/components/CommonForm/CommonForm';
 import { theme } from '@styles/theme.styles';
@@ -28,24 +30,24 @@ import {
   handleCloseLogin,
   handleOpenResetPassword,
 } from '@store/slices/statusSlice';
+import { InputType } from '@appTypes/form.types';
 
 type FormData = Record<string, unknown> & {
   [key: string]: string;
 };
 
-interface formFieldType {
+interface FormFieldType {
   name: keyof FormData;
   label: string;
-  type: string;
+  type: InputType;
 }
-
-interface resetedFormFields {}
 
 interface Props<T extends FormData> {
   upperTitle?: string;
   onSubmit: SubmitHandler<T>;
   submitButtonText: string;
-  formFields: formFieldType[];
+  formFields: FormFieldType[];
+  resetedValue?: any;
   formSchema: yup.AnyObjectSchema;
   mode?: 'forgot' | 'show';
   supportButton?: {
@@ -59,10 +61,13 @@ export const CommonForm = <T extends FormData>({
   onSubmit,
   submitButtonText,
   formFields,
+  resetedValue,
   formSchema,
   mode = 'show',
   supportButton,
 }: Props<T>) => {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -76,10 +81,19 @@ export const CommonForm = <T extends FormData>({
   const hidePassword = () => {
     setShowPasswordButton(false);
   };
-  const navigate = useNavigate();
-  const dispatch = useAppDispatch();
+
+  const submit = async (data: T) => {
+    await onSubmit(data);
+    reset(resetedValue);
+  };
+
+  const navigateToResetPassword = () => {
+    dispatch(handleCloseLogin());
+    dispatch(handleOpenResetPassword());
+  };
+
   return (
-    <StyledBox component={'form'} onSubmit={handleSubmit(onSubmit)}>
+    <StyledBox component={'form'} onSubmit={handleSubmit(submit)}>
       <Typography
         fontWeight={700}
         fontSize={'24px'}
@@ -91,7 +105,7 @@ export const CommonForm = <T extends FormData>({
         const { name, label, type } = field;
         if (name === 'password') {
           return (
-            <FormControl sx={{ width: '100%' }} variant="standard" key={index}>
+            <StyledFormControl variant="standard" key={index}>
               <InputLabel htmlFor="standard-adornment-password">
                 Password
               </InputLabel>
@@ -111,12 +125,7 @@ export const CommonForm = <T extends FormData>({
                         Show
                       </StyledPasswordButton>
                     ) : (
-                      <StyledPasswordButton
-                        onClick={() => {
-                          dispatch(handleCloseLogin());
-                          dispatch(handleOpenResetPassword());
-                        }}
-                      >
+                      <StyledPasswordButton onClick={navigateToResetPassword}>
                         Forgot?
                       </StyledPasswordButton>
                     )}
@@ -126,7 +135,7 @@ export const CommonForm = <T extends FormData>({
               <FormHelperText error>
                 {errors[name]?.message?.toString()}
               </FormHelperText>
-            </FormControl>
+            </StyledFormControl>
           );
         }
         return (
@@ -143,11 +152,7 @@ export const CommonForm = <T extends FormData>({
         );
       })}
       <StyledButton variant="contained" type="submit">
-        <Typography
-          sx={{ fontWeight: '700', fontSize: '24px', textTransform: 'none' }}
-        >
-          {submitButtonText}
-        </Typography>
+        <StyledSubmitButtonText>{submitButtonText}</StyledSubmitButtonText>
       </StyledButton>
       <StyledSupportButton onClick={supportButton?.onClick}>
         {supportButton?.text}

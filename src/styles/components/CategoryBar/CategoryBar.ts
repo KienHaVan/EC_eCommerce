@@ -7,6 +7,7 @@ export const StyledBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
+  borderRadius: '5px',
 }));
 
 export const StyledDivider = styled('div')(({ theme }) => ({
