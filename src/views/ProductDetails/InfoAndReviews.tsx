@@ -19,6 +19,7 @@ import { useAppSelector } from '@store/store';
 import { GetProductByIDReviewsResultType } from '@apis/ProductApi/types';
 import { ReviewResultType, ReviewType } from '@appTypes/product.types';
 import { nanoid } from '@reduxjs/toolkit';
+import dayjs from 'dayjs';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -116,14 +117,23 @@ export const InfoAndReviews = () => {
           >
             Customer Reviews
           </Typography>
-          {review?.result
-            .slice((pagination - 1) * reviewPerPage, pagination * reviewPerPage)
-            .map((review) => (
-              <Box key={nanoid()}>
-                <CustomerReview review={review} />
-                <Divider sx={{ margin: '6px 0' }} />
-              </Box>
-            ))}
+          {review?.result && review.result.length > 0 ? (
+            review?.result
+              .slice(
+                (pagination - 1) * reviewPerPage,
+                pagination * reviewPerPage
+              )
+              .map((review) => (
+                <Box key={nanoid()}>
+                  <CustomerReview review={review} />
+                  <Divider sx={{ margin: '6px 0' }} />
+                </Box>
+              ))
+          ) : (
+            <Typography fontWeight={700} fontSize="28px" lineHeight="33px">
+              No Reviews
+            </Typography>
+          )}
           <Stack
             spacing={2}
             margin="20px 0"

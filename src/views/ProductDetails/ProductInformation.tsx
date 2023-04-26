@@ -156,9 +156,15 @@ export const ProductInformation = () => {
                 fontWeight={700}
                 fontSize="16px"
                 lineHeight="19px"
-                color={theme.palette.common.green}
+                color={
+                  product && product?.countInStock > 0
+                    ? theme.palette.common.green
+                    : theme.palette.common.red
+                }
               >
-                In Stock
+                {product && product?.countInStock > 0
+                  ? 'In Stock'
+                  : 'Unavailable'}
               </Typography>
             </StyledBranchText>
             <Typography
@@ -244,7 +250,11 @@ export const ProductInformation = () => {
                 aria-label="outlined button group"
                 color="info"
               >
-                <Button>
+                <Button
+                  disabled={
+                    product && product?.countInStock === 0 ? true : false
+                  }
+                >
                   <Typography
                     fontWeight={700}
                     fontSize="30px"
@@ -255,7 +265,11 @@ export const ProductInformation = () => {
                 </Button>
 
                 <StyledQuantityText className="center">2</StyledQuantityText>
-                <Button>
+                <Button
+                  disabled={
+                    product && product?.countInStock === 0 ? true : false
+                  }
+                >
                   <Typography
                     fontWeight={700}
                     fontSize="30px"
@@ -265,7 +279,10 @@ export const ProductInformation = () => {
                   </Typography>
                 </Button>
               </StyledQuantityButtonGroup>
-              <StyledQuantityButton variant="contained">
+              <StyledQuantityButton
+                variant="contained"
+                disabled={product && product?.countInStock === 0 ? true : false}
+              >
                 <img src={Images.CARTPLUS} alt="" />
                 <Typography>Add to cart</Typography>
               </StyledQuantityButton>

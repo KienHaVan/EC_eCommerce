@@ -6,12 +6,14 @@ interface ProductStateType {
   categoryChosen: string;
   currentProduct: ProductType | null;
   currentReview: ReviewType | null;
+  productSearch: string;
 }
 
 const initialState: ProductStateType = {
   categoryChosen: '',
   currentProduct: null,
   currentReview: null,
+  productSearch: '',
 };
 
 const productSlice = createSlice({
@@ -31,14 +33,23 @@ const productSlice = createSlice({
     setCurrentReview: (state, action: PayloadAction<ReviewType>) => {
       state.currentReview = action.payload;
     },
+    setProductSearch: (state, action: PayloadAction<string>) => {
+      state.productSearch = action.payload;
+    },
   },
 });
 
-export const { setCategoryChosen, setCurrentProduct, setCurrentReview } =
-  productSlice.actions;
+export const {
+  setCategoryChosen,
+  setCurrentProduct,
+  setCurrentReview,
+  setProductSearch,
+} = productSlice.actions;
 export const productReducer = productSlice.reducer;
 
 export const selectCurrentProduct = (state: RootState) =>
   state.product.currentProduct;
 export const selectCurrentReview = (state: RootState) =>
   state.product.currentReview;
+export const selectProductSearch = (state: RootState) =>
+  state.product.productSearch;

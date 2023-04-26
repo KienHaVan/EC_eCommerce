@@ -8,6 +8,8 @@ import {
   GetAllProductsResponseType,
   GetProductByIDDataType,
   GetProductByIDResponseType,
+  SearchProductDataType,
+  SearchProductResponseType,
 } from './types';
 
 export const productApiSlice = apiSlice.injectEndpoints({
@@ -57,6 +59,14 @@ export const productApiSlice = apiSlice.injectEndpoints({
         },
       ],
     }),
+    searchProducts: builder.query<SearchProductDataType, { keyWord: string }>({
+      query: ({ keyWord }) => ({
+        url: `v1/search?keyword=${keyWord}`,
+        method: 'GET',
+      }),
+      transformResponse: (response: { data: SearchProductDataType }) =>
+        response.data,
+    }),
     getAllCategories: builder.query<string[], void>({
       query: () => 'v1/products/get-all-categories',
       transformResponse: (response: { data: string[] }) => response.data,
@@ -68,5 +78,6 @@ export const {
   useGetAllProductsQuery,
   useGetProductByIdQuery,
   useCreateReviewForProductMutation,
+  useSearchProductsQuery,
   useGetAllCategoriesQuery,
 } = productApiSlice;

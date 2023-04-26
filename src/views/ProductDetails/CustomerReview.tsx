@@ -6,6 +6,8 @@ import {
   StyledBoxContainer,
 } from '@styles/views/ProductDetails/CustomerReview';
 import { ReviewResultType } from '@appTypes/product.types';
+import dayjs from 'dayjs';
+
 export const CustomerReview = ({ review }: { review: ReviewResultType }) => {
   return (
     <StyledBoxContainer>
@@ -25,7 +27,7 @@ export const CustomerReview = ({ review }: { review: ReviewResultType }) => {
           {review.content}
         </Typography>
         <Typography fontWeight={700} fontSize="12px" lineHeight="24px">
-          {review.createdAt}
+          {dayjs(review.createdAt).format('YYYY-MM-DD HH:mm:ss')}
         </Typography>
       </Box>
     </StyledBoxContainer>

@@ -26,6 +26,7 @@ import { useModal } from '@hooks/useModal';
 import { UserMenu } from './UserMenu';
 import { CartMenu } from './CartMenu';
 import { useNavigate } from 'react-router-dom';
+import { theme } from '@styles/theme.styles';
 
 const StyledLinkToolBar = styled(Toolbar)(({ theme }) => ({
   backgroundColor: theme.palette.common.GREY_300,
@@ -79,16 +80,19 @@ export const UserHeader = () => {
         <LinkBar />
       </StyledLinkToolBar>
       <Toolbar>
-        <StyledContainerBox onClick={() => navigate('/')}>
-          <Typography
-            variant="h5"
-            noWrap
-            component="div"
-            fontWeight={700}
-            sx={{ display: { xs: 'none', sm: 'block' } }}
-          >
-            SHOP APP
-          </Typography>
+        <StyledContainerBox>
+          <Button onClick={() => navigate('/')}>
+            <Typography
+              variant="h5"
+              noWrap
+              component="div"
+              fontWeight={700}
+              color={theme.palette.common.black}
+              sx={{ display: { xs: 'none', sm: 'block' } }}
+            >
+              SHOP APP
+            </Typography>
+          </Button>
           <SearchBar />
           <Button onClick={(event) => handleClickCart(event)}>
             <img src={Images.CARTHOME} alt="" style={{ width: '32px' }} />

@@ -28,6 +28,7 @@ import { AllProducts } from './AllProducts';
 import { useGetAllProductsQuery } from '@apis/ProductApi';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
+import withLoading from '@HOC/withLoading';
 
 export const Home = () => {
   const dispatch = useAppDispatch();
@@ -56,7 +57,6 @@ export const Home = () => {
     size: pagination.size,
     category: categoryChosen || undefined,
   });
-  console.log(allProducts);
 
   useEffect(() => {
     setPagination({

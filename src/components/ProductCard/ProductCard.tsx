@@ -25,7 +25,8 @@ import CardContent from '@mui/material/CardContent';
 export const ProductCard = ({
   product,
 }: {
-  product: GetAllProductsResultType;
+  // product: GetAllProductsResultType;
+  product: any;
 }) => {
   const navigate = useNavigate();
   const handleChooseProduct = () => {
